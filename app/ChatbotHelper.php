@@ -37,31 +37,45 @@ class ChatbotHelper
         $hub_verify_token = array_key_exists('hub_verify_token', $_GET) ? $_GET['hub_verify_token'] : '';
         
         if ($hub_mode !== 'subscribe') {
-            $log->debug('Invalid webhook mode');
+            $this->log->debug('Invalid webhook mode');
             http_response_code(400);
             die(0);
         }
         if ($hub_verify_token !== getenv('VERIFY_TOKEN')) {
-            $log->debug('Failed to verify token');
+            $this->log->debug('Failed to verify token');
             http_response_code(400);
             die(0);
         }
-        $log->info('Webhook subscribed');
+        $this->log->info('Webhook subscribed');
         echo($hub_challenge);
         die(0);       
     }
     public function check_hub_signature(){
         if (!array_key_exists('HTTP_X_HUB_SIGNATURE', $_SERVER)) {
-            $log->debug('X-Hub-Signature header not found');
+            $this->log->debug('X-Hub-Signature header not found');
             http_response_code(400);
             die(0);
         }
         $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
         $expected = 'sha1=' . hash_hmac($body, getenv('APP_SECRET'), 'sha1');
         if ($expected !== $signature) {
-            $log->debug('X-Hub-Signature does not match');
+            $this->log->debug('X-Hub-Signature does not match');
             http_response_code(400);
             die(0);
+        }    
+    }
+    public function handle_msg($data){
+        if (array_key_exists('entry', $data)) {
+            foreach ($data['entry'] as $entry) {
+                if (array_key_exists('messaging', $entry)) {
+                    foreach ($entry['messaging'] as $item) {
+                        $senderId = $item->sender->id;
+                        $message = $item->message->text;
+                        $replyMessage = "Echo:" + $message;
+                        $this->send($senderId, $replyMessage);
+                    }
+                }
+            }
         }    
     }
 }
