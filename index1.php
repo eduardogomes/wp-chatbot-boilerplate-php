@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $chatbotHelper->verify_token();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
-    $chatbotHelper->check_hub_signature();
+    //$chatbotHelper->check_hub_signature();
 
     $body = file_get_contents('php://input');
     $data = json_decode($body, true);
