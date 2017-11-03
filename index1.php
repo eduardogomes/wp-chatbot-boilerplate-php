@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die(0);
     }
     $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    $expected = 'sha1=' . Env::hash($body, getenv('APP_SECRET'), 'sha1');
+    $expected = 'sha1=' . hash_hmac($body, getenv('APP_SECRET'), 'sha1');
     if ($expected !== $signature) {
         $log->debug('X-Hub-Signature does not match');
         http_response_code(400);
