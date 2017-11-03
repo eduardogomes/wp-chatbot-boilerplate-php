@@ -21,11 +21,6 @@ class ChatbotHelper
         $this->log->pushHandler(new StreamHandler('debug.log'));
     }
 
-    /**
-     * Send a reply back to Facebook chat
-     * @param $senderId
-     * @param $replyMessage
-     */
     public function send($senderId, string $replyMessage)
     {
         return $this->facebookSend->send($this->accessToken, $senderId, $replyMessage);
@@ -69,10 +64,12 @@ class ChatbotHelper
             foreach ($data['entry'] as $entry) {
                 if (array_key_exists('messaging', $entry)) {
                     foreach ($entry['messaging'] as $item) {
-                        $senderId = $item->sender->id;
-                        $message = $item->message->text;
-                        $replyMessage = "Echo:" + $message;
-                        $this->send($senderId, $replyMessage);
+                        $senderId = $item['sender']['id'];
+                        if (array_key_exists('message', $item)) {
+                            $message = $item['message']['text'];
+                            $replyMessage = "Echo:" . $message;
+                            $this->send($senderId, $replyMessage);
+                        }
                     }
                 }
             }
