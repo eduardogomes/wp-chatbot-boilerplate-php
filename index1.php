@@ -3,6 +3,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 use App\ChatbotHelper;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Dotenv\Dotenv;
+$dotenv = new Dotenv(dirname(__FILE__, 2));
+$dotenv->load();
+
 // Create the chatbot helper instance
 $chatbotHelper = new ChatbotHelper();
 $log = new Logger('general');

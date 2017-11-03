@@ -1,6 +1,6 @@
 <?php
 namespace App;
-use Dotenv\Dotenv;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 class ChatbotHelper
@@ -11,9 +11,7 @@ class ChatbotHelper
     public $config;
     public function __construct()
     {
-        $dotenv = new Dotenv(dirname(__FILE__, 2));
-        $dotenv->load();
-        $this->accessToken = getenv('PAGE_ACCESS_TOKEN');
+        $this->accessToken = getenv(['PAGE_ACCESS_TOKEN']);
         $this->facebookSend = new FacebookSend();
         $this->log = new Logger('general');
         $this->log->pushHandler(new StreamHandler('debug.log'));
