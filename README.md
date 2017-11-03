@@ -35,8 +35,8 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
 4. Clone this project and switch into the project directory.
 
     ```
-    git clone https://github.com/eduardogomes/wp-chatbot-boilerplate-node.git
-    cd wp-chatbot-boilerplate-node
+    git clone https://github.com/eduardogomes/wp-chatbot-boilerplate-php.git
+    cd wp-chatbot-boilerplate-php
     ```
 
 5. Install Node dependencies. We are using [Express](http://expressjs.com/) for serving stuff, [request](https://github.com/request/request) and [request-promise](https://github.com/request/request-promise) for sending and receiving messages.
