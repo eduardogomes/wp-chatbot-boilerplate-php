@@ -50,14 +50,14 @@ class ChatbotHelper
         echo($hub_challenge);
         die(0);       
     }
-    public function check_hub_signature(){
+    public function check_hub_signature($body){
         if (!array_key_exists('HTTP_X_HUB_SIGNATURE', $_SERVER)) {
             $this->log->debug('X-Hub-Signature header not found');
             http_response_code(400);
             die(0);
         }
         $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-        $expected = 'sha1=' . hash_hmac($body, getenv('APP_SECRET'), 'sha1');
+        $expected = 'sha1=' . hash_hmac('sha1', $body, getenv('APP_SECRET'));
         if ($expected !== $signature) {
             $this->log->debug('X-Hub-Signature does not match');
             http_response_code(400);
