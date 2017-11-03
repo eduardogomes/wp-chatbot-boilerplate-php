@@ -65,7 +65,7 @@ class ChatbotHelper
                 if (array_key_exists('messaging', $entry)) {
                     foreach ($entry['messaging'] as $item) {
                         $senderId = $item['sender']['id'];
-                        if ($senderId && isMessage($item)) {
+                        if ($senderId && $this->isMessage($item)) {
                             $message = $item['message']['text'];
                             $replyMessage = "Echo:" . $message;
                             $this->send($senderId, $replyMessage);    
