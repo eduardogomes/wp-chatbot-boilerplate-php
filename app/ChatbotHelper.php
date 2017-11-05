@@ -62,11 +62,17 @@ class ChatbotHelper
     public function handle_msg($data){
         $this->log->debug(json_encode($data, true));
         if (array_key_exists('entry', $data)) {
+            $this->log->debug('1');
             foreach ($data['entry'] as $entry) {
+                $this->log->debug('2');
                 if (array_key_exists('messaging', $entry)) {
+                    $this->log->debug('3');
                     foreach ($entry['messaging'] as $item) {
+                        $this->log->debug('4');
                         $senderId = $item[0]['sender']['id'];
+                        $this->log->debug($senderId);
                         if ($senderId && $this->isMessage($item[0])) {
+                            $this->log->debug('5');
                             $message = $item[0]['message']['text'];
                             $replyMessage = "Echo:" . $message;
                             $this->send($senderId, $replyMessage);    
