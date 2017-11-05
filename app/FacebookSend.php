@@ -23,9 +23,11 @@ class FacebookSend
         curl_setopt($ch, CURLOPT_POST, 1);
         // Attach JSON string to post fields.
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-        // Set the content type
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: ' . $accessToken));
+        // Set the http headers
+        $headr = array();
+        $headr[] = 'Content-type: application/json';
+        $headr[] = 'Authorization: ' . $accessToken;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headr);
         // Execute
         curl_exec($ch);
         if (curl_error($ch)) {
