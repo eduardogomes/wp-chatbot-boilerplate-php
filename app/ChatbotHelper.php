@@ -60,7 +60,7 @@ class ChatbotHelper
         }    
     }
     public function handle_msg($data){
-        $this->log->debug(json_encode($body, true));
+        $this->log->debug(json_encode($data, true));
         if (array_key_exists('entry', $data)) {
             foreach ($data['entry'] as $entry) {
                 if (array_key_exists('messaging', $entry)) {
