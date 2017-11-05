@@ -26,10 +26,12 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
 
 2. Install the [Heroku toolbelt](https://toolbelt.heroku.com) which will let you launch, monitor and generally control your instances (and other services like databases) from the command line.
 
-3. [Install Node]  (https://nodejs.org), this will be our server environment. Then open up Terminal (or whatever your CLI might be) and make sure you're running the latest version of npm, installed globally (the ```-g``` switch):
+3. [Install PHP 7]  (http://php.net/manual/en/install.php), this will be our server environment. Then open up Terminal (or whatever your CLI might be) and make sure you're running the latest version of composer - the package manager for PHP:
 
     ```
-    sudo npm install npm -g
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
     ```
 
 4. Clone this project and switch into the project directory.
@@ -39,17 +41,16 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
     cd wp-chatbot-boilerplate-php
     ```
 
-5. Install Node dependencies. We are using [Express](http://expressjs.com/) for serving stuff, [request](https://github.com/request/request) and [request-promise](https://github.com/request/request-promise) for sending and receiving messages.
+5. Install PHP dependencies. We are using [Monolog](https://github.com/Seldaek/monolog) for Logging and [DovEnv](https://github.com/vlucas/phpdotenv) for configuration.
 
     ```
-    npm install
+    php composer.phar install
     ```
 
-6. Create a new Heroku instance and push the code to the cloud.  We also set an environment variable called ```IS_HEROKU```, because this boilerplate works on any type of host but has some extra smarts for Heroku deployment.
+6. Create a new Heroku instance and push the code to the cloud.
 
     ```
     heroku create
-    heroku config:set IS_HEROKU=1
     git push heroku master
     ```  
 
@@ -71,30 +72,19 @@ We also have instructions for [Linux](/public/linux.md) and [Windows](/public/wi
 
 6. Create, Copy and safely store the [access token](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/permissions#appaccesstoken) that's shown to you. You'll need this when making API calls.
 
-7. Configure your environment variables. You will need to set the data on the ```.env``` file in your local wp-chatbot-boilerplate-node folder
+7. Configure your environment variables. You will need to set the data on the ```.env``` file in your local wp-chatbot-boilerplate-php folder
 
 ```
-NODE_ENV=development
 PAGE_ACCESS_TOKEN=Bearer <access token, created on step 6 in the format "Bearer TOKEN">
 VERIFY_TOKEN= <a unique string to identity your bot, e.g.: dev-workshop-bot-token>
-PORT=5000
-```
-
-### Set the missing configuration values in your Heroku environment
-
-```
-heroku config:set PAGE_ACCESS_TOKEN=Bearer <access token, the same that was set in the ```.env``` file>
-heroku config:set VERIFY_TOKEN=<a unique string to identity your bot, e.g.: dev-workshop-bot-token, the same that was set in the ```.env``` file>
+APP_SECRET= <a hexadecimal value created by workplace, used to sign the requests to secure they are coming from Facebook servers>
 ```
 
 8. Configure the messaging web hook with the Bot URL and the Verify Token (set in the previous step)
-    The url should be ```https://<your heroku app name>.herokuapp.com/webhook```.
+    The url should be ```https://<your heroku app name>.herokuapp.com/webhook.php```.
 
     ![Configure the Webhook](/public/img/documentation-img/webhook-config.png)
         
-
-
-
 
 # ⇨ Go to your Workplace instance find your bot and start chatting. 🤖
 
@@ -103,8 +93,6 @@ heroku config:set VERIFY_TOKEN=<a unique string to identity your bot, e.g.: dev-
 - Change the webhook.js file and deploy it to heroku (using ```git push heroku master```), after committing your changes in your local environment 
 
 - [Debug your bot](/public/debug.md) in your local environment
-
-- Create a [Cron like job](https://www.npmjs.com/package/cron) to message a user or post in a group
 
 - Deploy your chatbot to a [Docker container](/public/docker.md)
 
