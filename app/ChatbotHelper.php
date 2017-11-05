@@ -72,9 +72,10 @@ class ChatbotHelper
                         $senderId = $item['sender']['id'];
                         $this->log->debug(json_encode($item));
                         $this->log->debug($senderId);
-                        if ($senderId && $this->isMessage($item[0])) {
+                        if ($senderId && $this->isMessage($item)) {
                             $this->log->debug('5');
-                            $message = $item[0]['message']['text'];
+                            $message = $item['message']['text'];
+                            $this->log->debug($message);
                             $replyMessage = "Echo:" . $message;
                             $this->send($senderId, $replyMessage);    
                         }
