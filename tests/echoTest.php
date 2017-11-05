@@ -1,19 +1,11 @@
 <?php
-use App\ForeignExchangeRate;
+use App\FacebookPrepareData;
 use PHPUnit\Framework\TestCase;
-class EchoTest extends TestCase
+class FacebookPrepareDataTest extends TestCase
 {
-    public function testUnusedRatesAreRemoved() {
-        $foreignRate = new ForeignExchangeRate();
-        $rates = $foreignRate->getRates('EUR');
-        $this->assertContains('EUR', $rates);
-        $this->assertNotContains('TRY', $rates);
-        $this->assertNotContains('CAD', $rates);
-        $this->assertNotContains('RON', $rates);
-    }
-    public function testFormatIsString() {
-        $foreignRate = new ForeignExchangeRate();
-        $rates = $foreignRate->getRates('EUR');
-        $this->assertEquals('string', gettype($rates));
+    public function testFormatMessage() {
+        $dataPrepare = new FacebookPrepareData();
+        $json = $dataPrepare->prepare('1','m');
+        $this->assert($json !== null);
     }
 }
