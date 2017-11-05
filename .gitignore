@@ -23,7 +23,6 @@ vendor
 
 # Composer.phar
 composer.phar
-composer.lock
 
 # Environment-specific configuration
 # .env
