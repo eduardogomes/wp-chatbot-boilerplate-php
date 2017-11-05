@@ -69,8 +69,9 @@ class ChatbotHelper
                     $this->log->debug('3');
                     foreach ($entry['messaging'] as $item) {
                         $this->log->debug('4');
-                        $senderId = $item[0]['sender']['id'];
+                        $senderId = $item['sender']['id'];
                         $this->log->debug(json_encode($item));
+                        $this->log->debug($senderId);
                         if ($senderId && $this->isMessage($item[0])) {
                             $this->log->debug('5');
                             $message = $item[0]['message']['text'];
