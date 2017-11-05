@@ -23,6 +23,7 @@ class ChatbotHelper
 
     public function send($senderId, string $replyMessage)
     {
+        $this->log->debug($this->accessToken);
         return $this->facebookSend->send($this->accessToken, $senderId, $replyMessage);
     }
 
@@ -60,23 +61,16 @@ class ChatbotHelper
         }    
     }
     public function handle_msg($data){
-        $this->log->debug(json_encode($data, true));
         if (array_key_exists('entry', $data)) {
-            $this->log->debug('1');
             foreach ($data['entry'] as $entry) {
-                $this->log->debug('2');
                 if (array_key_exists('messaging', $entry)) {
-                    $this->log->debug('3');
                     foreach ($entry['messaging'] as $item) {
-                        $this->log->debug('4');
                         $senderId = $item['sender']['id'];
-                        $this->log->debug(json_encode($item));
-                        $this->log->debug($senderId);
                         if ($senderId && $this->isMessage($item)) {
-                            $this->log->debug('5');
                             $message = $item['message']['text'];
-                            $this->log->debug($message);
                             $replyMessage = "Echo:" . $message;
+                            $this->log->debug($senderId);
+                            $this->log->debug($replyMessage);
                             $this->send($senderId, $replyMessage);    
                         }
                     }

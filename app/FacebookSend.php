@@ -17,6 +17,7 @@ class FacebookSend
     public function send(string $accessToken, string $senderId, string $replyMessage)
     {
         $jsonDataEncoded = $this->facebookPrepareData->prepare($senderId, $replyMessage);
+        $this->log->debug($jsonDataEncoded);
         $ch = curl_init($this->apiUrl);
         // Tell cURL to send POST request.
         curl_setopt($ch, CURLOPT_POST, 1);
