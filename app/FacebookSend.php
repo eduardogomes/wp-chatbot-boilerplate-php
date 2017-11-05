@@ -10,7 +10,7 @@ class FacebookSend
     public function __construct()
     {
         $this->log = new Logger('general');
-        $this->log->pushHandler(new StreamHandler('debug.log'));
+        $this->log->pushHandler(new \Monolog\Handler\ErrorLogHandler());
         $this->facebookPrepareData = new FacebookPrepareData();
     }
 

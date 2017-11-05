@@ -18,7 +18,7 @@ class ChatbotHelper
         $this->accessToken = getenv('PAGE_ACCESS_TOKEN');
         $this->facebookSend = new FacebookSend();
         $this->log = new Logger('general');
-        $this->log->pushHandler(new StreamHandler('debug.log'));
+        $this->log->pushHandler(new \Monolog\Handler\ErrorLogHandler());
     }
 
     public function send($senderId, string $replyMessage)
@@ -60,6 +60,7 @@ class ChatbotHelper
         }    
     }
     public function handle_msg($data){
+        $this->log->debug(json_encode($body, true));
         if (array_key_exists('entry', $data)) {
             foreach ($data['entry'] as $entry) {
                 if (array_key_exists('messaging', $entry)) {
