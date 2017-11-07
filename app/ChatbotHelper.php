@@ -68,7 +68,7 @@ class ChatbotHelper
                         $senderId = $item['sender']['id'];
                         if ($senderId && $this->isMessage($item)) {
                             $message = $item['message']['text'];
-                            $replyMessage = "Echo:" . $message;
+                            $replyMessage = "Echoing:" . $message;
                             $this->log->debug($senderId);
                             $this->log->debug($replyMessage);
                             $this->send($senderId, $replyMessage);    
