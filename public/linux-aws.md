@@ -30,19 +30,19 @@ You can use the following instructions to install this application on a Linux se
 5. Clone this project and switch into the project directory.
 
     ```
-    git clone https://github.com/eduardogomes/wp-chatbot-boilerplate-node.git
-    cd wp-chatbot-boilerplate-node
+    git clone https://github.com/eduardogomes/wp-chatbot-boilerplate-php.git
+    cd wp-chatbot-boilerplate-nphp
     ```
 
-6. Install Node dependencies. We are using [Express](http://expressjs.com/) for serving stuff, [request](https://github.com/request/request) and [request-promise](https://github.com/request/request-promise) for sending and receiving messages.
+6. Install PHP dependencies. We are using [Monolog](https://github.com/Seldaek/monolog) for Logging and [DovEnv](https://github.com/vlucas/phpdotenv) for configuration.
 
     ```
-    npm install
+    php composer.phar install
     ```
 
-7. Run the app locally using 
+7. Deploy to Apache
     ```
-    gulp develop
+    cp * /var/www/html
     ```
 
-8. Try access the application landing page on http://hostname:5000/
+8. Try access the application landing page on http://<your public dns>/
